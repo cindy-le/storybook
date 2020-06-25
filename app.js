@@ -13,17 +13,15 @@ const app = express();
 
 // Logging
 if (process.env.NODE_ENV === 'development') {
-  app.arguments(morgan('dev'))
+  app.use(morgan('dev'))
 }
 
 // Handlebars
-app.engine(
-  '.hbs',
-  exphbs({
-    defaultLayout: 'main',
-    extname: '.hbs',
-  })
-)app.set('view engine', '.hbs');
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', '.hbs');
+
+// Routes
+app.use('/', require('./routes/index'));
 
 const PORT = process.env.PORT || 3000
 
